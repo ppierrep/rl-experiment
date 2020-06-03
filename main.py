@@ -2,6 +2,8 @@ from agent import DqnAgent
 from unityagents import UnityEnvironment
 import numpy as np
 
+from utils import plot
+
 env = UnityEnvironment(file_name="env/Banana_Linux_NoVis/Banana.x86_64")
 
 # get the default brain
