@@ -66,7 +66,7 @@ class DqnAgent():
 
         if random.random() > EPS:
             # Select highest Q values action
-            action = np.argmax(np.argmax(actions.detach().numpy()))
+            action = np.argmax(np.argmax(actions.cpu().detach().numpy()))
         else:
             # Select a random actions
             action = random.choice(np.arange(self.action_size))
