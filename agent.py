@@ -54,6 +54,9 @@ class DqnAgent():
         # update
         self.optimizer.step()
 
+        # Return the loss for monitoring
+        return torch.mean(update_loss).data.cpu().numpy()
+
     def act(self, state):
         '''
             Select an action based on inference from the state following an e-greedy policy.

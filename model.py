@@ -15,8 +15,6 @@ class QNetwork(torch.nn.Module):
         self.lin1 = nn.Linear(state_size, 64)
         self.lin2 = nn.Linear(64, action_size)
 
-        self.criterion = nn.CrossEntropyLoss()
-
     def forward(self, state):
         # convert state to tensor
         state = torch.from_numpy(state).float().to(device)  # unsqueeze ?

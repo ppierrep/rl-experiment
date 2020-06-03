@@ -24,9 +24,10 @@ loses = []
 # Instanciate a new agent.
 agent = DqnAgent(state_size=len(state), action_size=action_size)
 
-for episode in range(200):
+for episode in range(500):
     done = False
     score = 0
+    loss = 0
 
     env_info = env.reset(train_mode=True)[brain_name]
     action_size = brain.vector_action_space_size
@@ -42,16 +43,18 @@ for episode in range(200):
         score += reward                                        # update the score
         transition_info = (state, action, reward, next_state)
 
-        agent.learn(transition_info, done)                     # learn from transition
+        loss += agent.learn(transition_info, done)             # learn from transition
         score += reward
 
         if done:
             scores.append(score)
+            loses.append(loss)
             break
 
         state = next_state                                     # roll over the state to next time step
 
     if episode % update_at == 0:
+        plot(scores, loses)
         print('Episode: {} - '.format(episode), end="")
         print('Averaged Score of the last {} episodes : {}'.format(update_at, np.mean(scores[-update_at:]).round(2)))
 
