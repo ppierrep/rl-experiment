@@ -1,13 +1,17 @@
 ## Installation:
 
-Create and activate custom environment
+Create and install dependencies:
 ```
 pip install pipenv
-pipenv install --python=/usr/bin/python3.6
+pipenv install
+```
+
+Activate custom environment:
+```
 pipenv shell
 ```
 
-To install the minimal installation open ai gym with `classical_control` and `box2D`:
+In, `rl-vbm` install the minimal installation open ai gym with `classical_control` and `box2D`:
 ```
 git clone https://github.com/openai/gym.git
 pip install -e gym/
@@ -25,12 +29,18 @@ pip install deep-reinforcement-learning/python
 pip install mlagents==0.4.0
 ```
 
-<!-- python -m ipykernel install --user --name drlnd --display-name "drlnd" -->
-
 1. Download the environment from udacity from the link below.
     - Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip)
 
-2. Place the file in the `env/` folder, and decompress the file. 
+2. Place the file in the `env/` folder, and decompress the file:
+```
+unzip Banana_Linux_NoVis.zip -d env/Banana_Linux_NoVis
+```
+
+if `unzip` is not installed:
+```
+sudo apt-get install unzip
+```
 
 
 ### Instructions
