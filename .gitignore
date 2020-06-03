@@ -1,0 +1,11 @@
+*.log
+
+# Dependencies
+gym/
+deep-reinforcement-learning/
+
+# Jupyter checkpoints
+.ipynb_checkpoints
+__pycache__
+
+env/
