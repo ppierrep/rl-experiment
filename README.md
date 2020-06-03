@@ -42,10 +42,12 @@ if `unzip` is not installed:
 sudo apt-get install unzip
 ```
 
-
 ### Instructions
 
-Follow the instructions in `Navigation.ipynb` to get started with training your own agent!
+To use jupyter notebooks, you may want to enable the environment with:
+```
+python -m ipykernel install --user --name=rl-vbm
+```
 
 ```
 jupyter notebook
