@@ -13,7 +13,8 @@ class QNetwork(torch.nn.Module):
 
         # self state input, 64 output
         self.lin1 = nn.Linear(state_size, 64)
-        self.lin2 = nn.Linear(64, action_size)
+        self.lin2 = nn.Linear(64, 64)
+        self.lin3 = nn.Linear(64, action_size)
 
     def forward(self, state):
         # convert state to tensor
@@ -21,5 +22,6 @@ class QNetwork(torch.nn.Module):
 
         x = functional.relu(self.lin1(state))
         x = functional.relu(self.lin2(x))
+        x = self.lin3(x)
 
         return x
