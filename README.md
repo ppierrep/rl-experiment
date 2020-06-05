@@ -11,7 +11,7 @@ Activate custom environment:
 pipenv shell
 ```
 
-In, `rl-vbm` install the minimal installation open ai gym with `classical_control` and `box2D`:
+In, `rl-vbm` install the minimal installation open ai gym with `classical_control` and `box2D` (to run in project root):
 ```
 git clone https://github.com/openai/gym.git
 pip install -e gym/
@@ -19,14 +19,10 @@ pip install -e 'gym/[box2d]'
 pip install -e 'gym/[classic_control]'
 ```
 
-This project use udacity deep-reinforcement learning repository as dependency:
+This project use udacity deep-reinforcement learning repository as dependency (to run in project root):
 ```
 git clone https://github.com/udacity/deep-reinforcement-learning.git
 pip install deep-reinforcement-learning/python
-```
-
-```
-pip install mlagents==0.4.0
 ```
 
 1. Download the environment from udacity from the link below.
@@ -34,7 +30,7 @@ pip install mlagents==0.4.0
 
 2. Place the file in the `env/` folder, and decompress the file:
 ```
-unzip Banana_Linux_NoVis.zip -d env/Banana_Linux_NoVis
+unzip Banana_Linux_NoVis.zip -d env/
 ```
 
 if `unzip` is not installed:
