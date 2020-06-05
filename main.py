@@ -7,7 +7,7 @@ import torch
 from agent import DqnAgent
 
 
-env = UnityEnvironment(file_name="env/Banana_Linux_NoVis/Banana.x86_64")
+env = UnityEnvironment(file_name="env/Banana_Linux_NoVis/Banana.x86", base_port=64738, seed=1)
 
 dqn_params = {
     # Experiment hyperparameters
