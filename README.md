@@ -1,3 +1,5 @@
+![](Banana_Collector_Environment.gif)
+
 ## Installation:
 
 Create and install dependencies:
