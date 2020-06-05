@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 torch = "==0.4.0"
 unityagents = "==0.4.0"
+mlagents = "==0.4.0"
 
 [requires]
 python_version = "3.6"

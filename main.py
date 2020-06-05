@@ -18,7 +18,7 @@ action_size = brain.vector_action_space_size
 state = env_info.vector_observations[0]
 
 update_every = 10
-learn_every = 10
+learn_every = 1
 
 agent = DqnAgent(state_size=len(state), action_size=action_size)
 
@@ -38,7 +38,7 @@ for episode in range(5000):
     state = env_info.vector_observations[0]
 
     while True:
-        action = agent.act(state, episode)                     # ask agent action selection
+        action = agent.act(state)                     # ask agent action selection
         env_info = env.step(action)[brain_name]                # send the action to the environment
 
         next_state = env_info.vector_observations[0]           # get the next state

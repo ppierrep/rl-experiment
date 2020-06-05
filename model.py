@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 from torch import nn
 from torch.nn import functional
 
@@ -17,9 +18,6 @@ class QNetwork(torch.nn.Module):
         self.lin3 = nn.Linear(64, action_size)
 
     def forward(self, state):
-        # convert state to tensor
-        state = torch.from_numpy(state).float().to(device)  # unsqueeze ?
-
         x = functional.relu(self.lin1(state))
         x = functional.relu(self.lin2(x))
         x = self.lin3(x)
