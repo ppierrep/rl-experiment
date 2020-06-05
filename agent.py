@@ -7,41 +7,33 @@ from collections import deque
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-
-# Experiment hyperparameters
-LR = 5e-4               # learning rate 
-EPS = 0.1
-MIN_EPS = 0.01
-EPS_DECAY = 0.995
-ALPHA = 0.2
-GAMMA = 0.98
-TAU = 1e-3              # for soft update of target parameters
-
-BUFFER_SIZE = int(5e5)  # replay buffer size
-BATCH_SIZE = 64         # minibatch size
-
 class DqnAgent():
     '''Agent that will interact with our environnement'''
 
-    def __init__(self, state_size, action_size, seed=None):
+    def __init__(self, state_size, action_size, params, seed=None):
+        self.seed = seed
         if seed:
-            self.seed = random.seed(seed)
+            random.seed(seed)
+            np.random.seed(0)
 
+        self.params = params
         self.state_size = state_size
         self.action_size = action_size
-        self.eps = EPS
+        self.eps = self.params['EPS']
         
         # Memmory to learn from.
-        self.memory = ReplayBuffer(memory_size=BUFFER_SIZE, sample_size=BATCH_SIZE)
+        self.memory = ReplayBuffer(memory_size=self.params['BUFFER_SIZE'], sample_size=self.params['BATCH_SIZE'])
 
         # Network
-        self.target = QNetwork(state_size=state_size, action_size=action_size).to(device)
-        self.local = QNetwork(state_size=state_size, action_size=action_size).to(device)
-        self.optimizer = torch.optim.Adam(self.local.parameters(), lr=LR)
+        self.target = QNetwork(state_size=state_size, action_size=action_size, seed=seed).to(device)
+        self.local = QNetwork(state_size=state_size, action_size=action_size, seed=seed).to(device)
+        self.optimizer = torch.optim.Adam(self.local.parameters(), lr=self.params['LR'])
+       
+        self.t_step = 0
 
     def learn(self, transition_info):
         '''
-            Update the policy of the agent from one step infos.
+            Update the policy of the agent from one step transition.
             Input:
                 transition_info(tuple): Tuple of the format (s, a, r, s')
         '''
@@ -49,8 +41,7 @@ class DqnAgent():
 
         # Get old estimate of the q_values according to doing old action while being in the old state.
         Q_target = self.target(next_state).detach().max(1)[0].unsqueeze(1)
-        import ipdb; ipdb.set_trace()
-        Q_target = reward.unsqueeze(1) + GAMMA * Q_target * (1 - done.unsqueeze(1))
+        Q_target = reward.unsqueeze(1) + self.params['GAMMA'] * Q_target * (1 - done.unsqueeze(1))
 
         # Get expected Q values from local model
         Q_expected = self.local(state).gather(1, action.unsqueeze(1))
@@ -66,7 +57,7 @@ class DqnAgent():
         self.optimizer.step()
         
         # ------------------- update target network ------------------- #
-        self.soft_update(self.local, self.target, TAU)
+        self.soft_update(self.local, self.target, self.params['TAU'])
         
         # Return the loss for monitoring
         return torch.mean(loss).data.cpu().numpy()
@@ -80,7 +71,8 @@ class DqnAgent():
                 action(int): Action
         '''
         # decay epsilon
-        self.eps = self.eps * EPS_DECAY
+        self.eps = self.eps * self.params['EPS_DECAY']
+        e = max(self.params['MIN_EPS'], self.eps)
 
         state = torch.from_numpy(state).detach().to(device).unsqueeze(0).float()
         
@@ -89,7 +81,7 @@ class DqnAgent():
             actions = self.local(state)
         self.local.train(mode=True)
             
-        if random.random() > max(MIN_EPS, self.eps):
+        if random.random() > e:
             # Select highest Q values action
             action = np.argmax(actions.cpu().detach().numpy())
         else:
@@ -97,6 +89,20 @@ class DqnAgent():
             action = random.choice(np.arange(self.action_size))
 
         return action
+
+    def step(self, transition_info):
+        loss = 0
+        # Save experience in replay memory
+        self.memory.add_recollection(transition_info)
+        
+        # Learn every UPDATE_EVERY time steps.
+        self.t_step = (self.t_step + 1) % self.params['UPDATE_EVERY']
+        if self.t_step == 0:
+            # If enough samples are available in memory, get random subset and learn
+            if len(self.memory) > self.params['BATCH_SIZE']:
+                samples = self.memory.sample()
+                loss += self.learn(samples)
+        return loss
 
     def soft_update(self, local_model, target_model, tau):
             """Soft update model parameters.
@@ -114,13 +120,12 @@ class DqnAgent():
 class ReplayBuffer():
     def __init__(self, memory_size, sample_size):
         '''Stores tuples of (state, action, reward, next_state, done)'''
-        # self.memory = namedtuple('Memory', ['state', 'action', 'reward', 'next_state', 'done'])
         self.experience = deque(maxlen=memory_size)
-        
         self.sample_size = sample_size
 
     def sample(self):
         '''Return (sample_size) elements from memory.'''
+        
         sampling = random.choices(self.experience, k=self.sample_size)
 
         # transposing row of tuples to tuples of rows
@@ -136,3 +141,6 @@ class ReplayBuffer():
 
     def add_recollection(self, memory):
         self.experience.append(memory)
+        
+    def __len__(self):
+        return len(self.experience)
