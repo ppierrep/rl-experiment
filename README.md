@@ -1,4 +1,4 @@
-### Value and Policy based methods algorithm using pytorch
+# Value and Policy based methods algorithm using pytorch
 
 <p align="center"> 
     <img src="Banana_Collector_Environment.gif">
