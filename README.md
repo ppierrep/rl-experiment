@@ -71,6 +71,8 @@ jupyter notebook
 ```
 [Jupyter] Be sure to select the right kernel by following `Kernel` > `Change Kernel` > `rl-vbm`.
 
+Pre-trained agents can be found in `/pretrained_models`.
+
 ## References
 
 ### Vanilla DQN
