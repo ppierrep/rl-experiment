@@ -37,6 +37,12 @@ And to achieve this goal, the agent will be interacting as follow:
 - `2`: turn left
 - `3`: turn right
 
+## Learning:
+
+The learning is basically the succession of these steps:
+    - play with agent during n steps while storing its experiences.                       
+    - update agent behavior after n steps
+
 ## Deep Q-Network
 ### Model Architecture:
 
