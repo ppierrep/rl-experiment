@@ -4,6 +4,20 @@
     <img src="Banana_Collector_Environment.gif">
 </p>
 
+In this repository you will found, value based methods implementations (i.e Deep Q-Networks).
+They will be tested on Unity Banana environement where an agent have to:
+- Gather all yellow bananas (+1 reward)
+- Avoid violet bananas (-1 reward)
+
+To perform optimally, the agent goal will be to collect as many banana as necessary.
+And to achieve this goal, the agent will be interacting as follow:
+- `0`: do nothing (the environment make the agent move forward automatically)
+- `1`: move backward
+- `2`: turn left
+- `3`: turn right 
+
+This enironnment should be considered solved when the agent will have a consistent averaged score of 15 (over 100 episodes).
+
 ## Installation:
 
 Create and install dependencies:
@@ -44,13 +58,22 @@ if `unzip` is not installed:
 sudo apt-get install unzip
 ```
 
-### Instructions
+## Instructions
 
 To use jupyter notebooks, you may want to enable the environment with:
 ```
 python -m ipykernel install --user --name=rl-vbm
 ```
-
 ```
 jupyter notebook
 ```
+[Jupyter] Be sure to select the right kernel by following `Kernel` > `Change Kernel` > `rl-vbm`.
+
+## References
+
+### Vanilla DQN
+[Playing Atari with Deep Reinforcement Learning](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf)
+
+### Dueling DQN
+[Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/pdf/1511.06581.pdf)
+

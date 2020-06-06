@@ -1,7 +1,7 @@
 import torch
 import random
 import numpy as np
-from model import QNetwork
+from model import QNetwork, DuelingQNetwork
 import random
 from collections import deque
 
@@ -10,7 +10,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class DqnAgent():
     '''Agent that will interact with our environnement'''
 
-    def __init__(self, state_size, action_size, params, seed=None):
+    def __init__(self, state_size, action_size, params, seed=None, model='dqn'):
         self.seed = seed
         if seed:
             random.seed(seed)
@@ -25,8 +25,16 @@ class DqnAgent():
         self.memory = ReplayBuffer(memory_size=self.params['BUFFER_SIZE'], sample_size=self.params['BATCH_SIZE'])
 
         # Network
-        self.target = QNetwork(state_size=state_size, action_size=action_size, seed=seed).to(device)
-        self.local = QNetwork(state_size=state_size, action_size=action_size, seed=seed).to(device)
+        if model == 'dqn':
+            # Vanilla DQN
+            self.target = QNetwork(state_size=state_size, action_size=action_size, seed=seed).to(device)
+            self.local = QNetwork(state_size=state_size, action_size=action_size, seed=seed).to(device)
+
+        elif model == 'ddqn':
+            # Dueling DQN
+            self.target = DuelingQNetwork(state_size=state_size, action_size=action_size, seed=seed).to(device)
+            self.local = DuelingQNetwork(state_size=state_size, action_size=action_size, seed=seed).to(device)
+
         self.optimizer = torch.optim.Adam(self.local.parameters(), lr=self.params['LR'])
        
         self.t_step = 0
