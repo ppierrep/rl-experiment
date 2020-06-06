@@ -75,6 +75,9 @@ Pre-trained agents can be found in `/pretrained_models`.
 
 ## References
 
+### Udacity Repo
+[deep reinforcment learning](https://github.com/udacity/deep-reinforcement-learning/tree/master/p1_navigation)
+
 ### Vanilla DQN
 [Playing Atari with Deep Reinforcement Learning](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf)
 
