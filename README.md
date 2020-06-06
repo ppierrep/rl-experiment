@@ -20,6 +20,8 @@ This enironnment should be considered solved when the agent will have a consiste
 
 ## Installation:
 
+After having cloned the project.
+
 Create and install dependencies:
 ```
 pip install pipenv

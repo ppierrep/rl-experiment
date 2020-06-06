@@ -38,14 +38,14 @@ class DuelingQNetwork(torch.nn.Module):
         self.lin1 = nn.Linear(state_size, 64)
         self.lin2 = nn.Linear(64, 64)
         
-        self.linValue = nn.Linear(64, 128)
-        self.linAvantage = nn.Linear(64, 128)
+        self.linValue = nn.Linear(64, 32)
+        self.linAvantage = nn.Linear(64, 32)
         
         # State value
-        self.val = nn.Linear(128, 1)
+        self.val = nn.Linear(32, 1)
 
         # Advantage for each action
-        self.adv = nn.Linear(128, action_size)
+        self.adv = nn.Linear(32, action_size)
 
     def forward(self, state):
         x = functional.relu(self.lin1(state))
