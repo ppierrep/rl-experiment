@@ -65,14 +65,20 @@ sudo apt-get install unzip
 
 To use jupyter notebooks, you may want to enable the environment with:
 ```
-python -m ipykernel install --user --name=rl-vbm
+python -m ipykernel install --user --name=rl-experiment
 ```
 ```
 jupyter notebook
 ```
-[Jupyter] Be sure to select the right kernel by following `Kernel` > `Change Kernel` > `rl-vbm`.
+[Jupyter] Be sure to select the right kernel by following `Kernel` > `Change Kernel` > `rl-experiment`.
 
 Pre-trained agents can be found in `/pretrained_models`.
+
+## Project structure
+
+In this Repo you will find algorithms implemented to tackle two types of environments, please refer to each of them specifically:
+- [Continuous Control environments](https://github.com/ppierrep/rl-experiment/blob/master/continuous_control/Report.md)
+- [Discrete Control environments](https://github.com/ppierrep/rl-experiment/blob/master/discrete_control/Report.md)
 
 ## References
 
