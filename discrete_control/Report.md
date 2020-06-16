@@ -47,24 +47,24 @@ The learning is basically the succession of these steps:
 ### Model Architecture:
 
 <p align="center"> 
-    <img src="experiments/DQN_network.png">
+    <img src="../experiments/DQN_network.png">
 </p>
 
 ### Results:
 <p align="center"> 
-    <img src="experiments/dqn_final.png">
+    <img src="../experiments/dqn_final.png">
 </p>
 
 ## Dueling Deep Q-Network
 ### Model Architecture:
 
 <p align="center"> 
-    <img src="experiments/DDQN_network.png">
+    <img src="../experiments/DDQN_network.png">
 </p>
 
 ### Results:
 <p align="center"> 
-    <img src="experiments/ddqn_final.png">
+    <img src="../experiments/ddqn_final.png">
 </p>
 
 ## Discussion
