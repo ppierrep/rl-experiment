@@ -68,7 +68,7 @@ To use jupyter notebooks, you may want to enable the environment with:
 python -m ipykernel install --user --name=rl-experiment
 ```
 ```
-jupyter notebook
+jupyter lab
 ```
 [Jupyter] Be sure to select the right kernel by following `Kernel` > `Change Kernel` > `rl-experiment`.
 
