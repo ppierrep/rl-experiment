@@ -8,4 +8,6 @@ deep-reinforcement-learning/
 .ipynb_checkpoints
 __pycache__
 
-env/
+# ignore all env folder other than gitkeep
+env/*
+!env/.gitkeep
